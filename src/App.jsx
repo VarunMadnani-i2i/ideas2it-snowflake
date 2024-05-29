@@ -13,9 +13,9 @@ function App() {
   };
 
   const handleHubspotSubmission = () => {
-    // setTimeout(() => {
+    setTimeout(() => {
       setCurrentView('warehouseManager');
-    // },1500)
+    },1500)
     
   };
 
@@ -44,6 +44,8 @@ function App() {
 
 
   return (
+    <>
+    {(currentView === 'initial' || currentView === 'hubspot') && <>
     <section className="flex flex-col max-w-[1100px] p-4 mx-auto">
       {currentView === 'initial' && (
         <WarehouseForm onSave={handleWarehouseFormSave} onCancel={() => {}} />
@@ -55,10 +57,14 @@ function App() {
           <div id="hubspotForm"></div>
         </div>
       )}
-      {currentView === 'warehouseManager' && (
-        <WarehouseManager initialWarehouseData={initialWarehouseData} />
-      )}
-    </section>
+     
+    </section></>}
+    {currentView === 'warehouseManager' && (
+      <section>
+          <WarehouseManager initialWarehouseData={initialWarehouseData} />
+      </section>
+    )}
+    </>
   );
 }
 
