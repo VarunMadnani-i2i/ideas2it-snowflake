@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import WarehouseForm from './WarehouseForm';
-import WarehouseView from './WareHouseBlock';
-import { getPriceByCategory, getStorageCost, getCreditHrs } from '../util';
+import React, { useEffect, useState } from "react";
+import WarehouseForm from "./WarehouseForm";
+import WarehouseView from "./WareHouseBlock";
+import { getPriceByCategory, getStorageCost, getCreditHrs } from "../util";
 
 function WarehouseManager({ initialWarehouseData }) {
   const [warehouses, setWarehouses] = useState([]);
@@ -27,6 +27,13 @@ function WarehouseManager({ initialWarehouseData }) {
     }
     setEditingIndex(-1);
     setIsAddingNew(false);
+
+    const totalCredits = calculateTotalCredits();
+    const cost = calculateTotalCost();
+
+    // Call update functions to pass data to parent component
+    updateTotalCredits(totalCredits);
+    updateEstimatedCost(cost);
   };
 
   const handleEdit = (index) => {
@@ -86,15 +93,49 @@ function WarehouseManager({ initialWarehouseData }) {
   };
   return (
     <div className="flex flex-col">
-      <div>
-        <div>Total Credits: {calculateTotalCredits()}</div>
-        <div>Total Cost: {calculateTotalCost()}</div>
+      <div className="relative bg-blue-900 overflow-hidden text-white h-auto z-50 pt-20">
+        <img
+          src="/src/assets/Glow.svg"
+          alt="Hero Section img"
+          className="w-[800px] h-auto md:h-[700px] absolute z-0 top-0"
+        />
+        <img
+          src="/src/assets/image.png"
+          alt="Hero Section img"
+          className="absolute max-w-[272px] max-h-[272px] md:max-w-[442px] md:max-h-[441px] z-0 -top-20 md:-top-40 md:right-0 -right-20"
+        />
+        <div className="relative z-10 flex flex-col md:flex-row gap-[23px] md:gap-[135px] max-w-[700px] mx-auto justify-center items-center text-center">
+          <div>
+            <div className="flex flex-col z-50 text-2xl">
+              <span className="md:text-base text-sm">
+                Total Credits Cosumed:
+              </span>{" "}
+              <span className="text-[40px] leading-[48.76px] md:text-[80px] md:leading-[97.52px] md:font-medium">
+                {calculateTotalCredits()}
+              </span>
+            </div>
+            <p className="md:text-xl text-xs font-thin">per month</p>
+          </div>
+          <div>
+            <div className="flex flex-col z-50 text-2xl">
+              <span className="md:text-base text-sm">Estimated Cost: </span>
+              <span className="text-[40px] leading-[48.76px] md:text-[80px] md:leading-[97.52px] md:font-medium">
+                {calculateTotalCost()}
+              </span>
+            </div>
+            <p className="md:text-xl text-xs font-thin">per month</p>
+          </div>
+        </div>
+        <p className="text-xs py-10 md:max-w-[700px] md:mx-auto px-5 md:px-0">
+          *This calculator aims to provide you a ball park estimate for what to
+          expect as a monthly cost of Snowflake. Actual costs may vary.
+        </p>
       </div>
       {isAddingNew && (
         <WarehouseForm onSave={handleSave} onCancel={handleCancel} />
       )}
       {warehouses.map((warehouse, index) => (
-        <div key={warehouse + index}>
+        <div className="mt-[45px] px-5 md:px-5" key={warehouse + index}>
           {editingIndex === index ? (
             <WarehouseForm
               defaultValues={warehouse}
@@ -103,7 +144,7 @@ function WarehouseManager({ initialWarehouseData }) {
             />
           ) : (
             <div className="mb-6">
-              <div className="flex text-lg mb-2">
+              <div className="flex text-lg mb-3 max-w-[820px] mx-auto">
                 <p>Warehouse {index + 1}</p>
                 <div className="ml-auto text-sm underline text-[#5C409C] flex gap-4">
                   <button onClick={() => handleEdit(index)}>Edit</button>
@@ -116,15 +157,17 @@ function WarehouseManager({ initialWarehouseData }) {
           )}
         </div>
       ))}
-      <button
-        className="mx-auto border border-[#5C409C] text-[#5C409C] cursour-pointer rounded-md px-4 py-2"
-        onClick={() => {
-          setIsAddingNew(true);
-          setEditingIndex(-1);
-        }}
-      >
-        Add another warehouse
-      </button>
+      <div className="mx-auto py-8">
+        <button
+          className="border border-[#5C409C] text-[#5C409C] cursour-pointer rounded-md px-4 py-2"
+          onClick={() => {
+            setIsAddingNew(true);
+            setEditingIndex(-1);
+          }}
+        >
+          Add another warehouse
+        </button>
+      </div>
     </div>
   );
 }
