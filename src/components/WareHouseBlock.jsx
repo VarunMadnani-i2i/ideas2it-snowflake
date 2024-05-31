@@ -12,7 +12,7 @@ function FieldView({ label, data, key }) {
 function WarehouseView({ warehouse }) {
   return (
     <div className="bg-[#F9F9FF] rounded-2xl ">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-y-[23px] gap-x-10 max-w-[820px] mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-y-[23px] gap-x-10 max-w-[800px] mx-auto">
         {fields.map(
           (e) =>
             warehouse[e.key] && (

@@ -19,9 +19,13 @@ const NumberInput = ({ min, max, step, value, onChange }) => {
   };
 
   return (
-    <div className="flex items-center justify-between gap-2 border-2 rounded-md w-32 px-2 py-2">
+    <div className="flex items-center justify-between border-2 border-gray-300 rounded-md w-36 px-2 py-2">
       <button type="button" onClick={decrement}>
-        -
+        <img
+          className="w-[14px] h-[14px]"
+          src="assets/minus.svg"
+          alt="minus button"
+        ></img>
       </button>
       <input
         type="number"
@@ -30,11 +34,15 @@ const NumberInput = ({ min, max, step, value, onChange }) => {
         step={step}
         min={min}
         max={max}
-        className="w-15 text-center appearance-none"
+        className="text-center appearance-none text-custom_purple font-mediun text-xl "
         style={{ MozAppearance: "textfield" }}
       />
       <button type="button" onClick={increment}>
-        +
+        <img
+          className="w-[14px] h-[14px]"
+          src="assets/plus.svg"
+          alt="plus button"
+        ></img>
       </button>
     </div>
   );
@@ -121,10 +129,10 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
 
   return (
     <form
-      className="bg-[#F9F9FF] pt-[25px] rounded-2xl px-5 lg:px-0 max-w-[820px] mx-auto"
+      className="bg-[#F9F9FF] pt-[25px] rounded-2xl lg:px-0 "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-[27px] gap-x-[41px] ">
+      <div className="grid grid-cols-1 md:grid-cols-2 pl-5 gap-y-[27px] gap-x-[41px] ">
         {fields
           .filter((field) => field.type !== 2)
           .map((field) => (
@@ -137,7 +145,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
             />
           ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-[27px] gap-x-[41px] mt-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 pl-5 gap-y-[27px] gap-x-[41px] mt-10 ">
         {fields
           .filter((field) => field.type === 2)
           .map((field) => (
@@ -152,18 +160,19 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
       </div>
       <div className="mt-[39px] flex gap-10 mb-[49px] justify-center">
         <button
-          className="py-[11px] px-4 border-2 border-custom_purple bg-custom_purple bg-opacity-5 rounded-md text-custom_purple"
+          className="flex gap-2 py-[11px] px-4 border-2 border-custom_purple bg-custom_purple bg-opacity-5 rounded-md text-custom_purple font-medium"
           type="submit"
         >
-          Save
+          Calculate
+          <img src="assets/rightArrow.png" alt="arrow" className="w-6 h-auto" />
         </button>
-        <button
+        {/* <button
           className="py-[11px] px-4 border-2 border-custom_purple bg-custom_purple bg-opacity-5 rounded-md text-custom_purple"
           type="button"
           onClick={onCancel}
         >
           Cancel
-        </button>
+        </button> */}
       </div>
     </form>
   );

@@ -95,12 +95,12 @@ function WarehouseManager({ initialWarehouseData }) {
     <div className="flex flex-col">
       <div className="relative bg-blue-900 overflow-hidden text-white h-auto z-50 pt-20">
         <img
-          src="/src/assets/Glow.svg"
+          src="assets/glow.svg"
           alt="Hero Section img"
           className="w-[800px] h-auto md:h-[700px] absolute z-0 top-0"
         />
         <img
-          src="/src/assets/image.png"
+          src="assets/hero_design.svg"
           alt="Hero Section img"
           className="absolute max-w-[272px] max-h-[272px] md:max-w-[442px] md:max-h-[441px] z-0 -top-20 md:-top-40 md:right-0 -right-20"
         />
@@ -144,7 +144,7 @@ function WarehouseManager({ initialWarehouseData }) {
             />
           ) : (
             <div className="mb-6">
-              <div className="flex text-lg mb-8 max-w-[820px] mx-auto">
+              <div className="flex text-lg mb-8 max-w-[800px] mx-auto">
                 <p>Warehouse {index + 1}</p>
                 <div className="ml-auto text-sm underline text-[#5C409C] flex gap-4">
                   <button onClick={() => handleEdit(index)}>Edit</button>
