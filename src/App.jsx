@@ -3,6 +3,7 @@ import WarehouseManager from "./components/WarehouseManager";
 import WarehouseForm from "./components/WarehouseForm";
 import "./App.css";
 import HeroSection from "./components/HeroSection";
+import Info from "./components/Info";
 // import { montserrat } from "./font";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <>
             <div>
               <HeroSection />
+              {currentView === "initial" && <Info />}
               <section className="flex flex-col max-w-[800px] mx-auto">
                 {currentView === "initial" && (
                   <WarehouseForm
@@ -60,8 +62,12 @@ function App() {
                 {currentView === "hubspot" && (
                   <div className="flex flex-col gap-4 pt-10 pb-8">
                     {/* Embed your HubSpot form here */}
-                    <h2 className="text-2xl max-w-[800px] mx-auto">You are just a step away from seeing the cost. </h2>
-                    <p className="text-xl max-w-[485px] mx-auto">Enter your name and email address to continue.</p>
+                    <h2 className="text-2xl max-w-[800px] mx-auto">
+                      You are just a step away from seeing the cost.{" "}
+                    </h2>
+                    <p className="text-xl max-w-[485px] mx-auto">
+                      Enter your name and email address to continue.
+                    </p>
                     <div id="hubspotForm"></div>
                   </div>
                 )}
@@ -81,5 +87,3 @@ function App() {
 }
 
 export default App;
-
-
