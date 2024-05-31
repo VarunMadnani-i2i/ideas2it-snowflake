@@ -15,7 +15,7 @@ export default function HeroSection() {
           className="absolute max-w-[272px] max-h-[272px] md:max-w-[442px] md:max-h-[441px] z-0 top-0 md:right-0 -right-20"
         />
         <div className="max-w-[1440px] mx-auto h-auto md:h-[630px] text-white">
-          <div className="py-8 md:pt-24 pl-5 max-w-[800px] mx-auto">
+          <div className="py-8 md:pt-24 px-5 max-w-[820px] mx-auto">
             <div className="flex flex-col gap-[17px] md:gap-6 z-10">
               <h1 className="font-medium text-2xl md:text-[60px] md:leading-[74px] font-montserrat z-10">
                 Wondering how much a Snowflake Data Cloud could cost?

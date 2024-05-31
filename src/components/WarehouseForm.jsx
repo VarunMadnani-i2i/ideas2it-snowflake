@@ -129,7 +129,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
 
   return (
     <form
-      className="bg-[#F9F9FF] pt-[25px] rounded-2xl lg:px-0 "
+      className="bg-[#F9F9FF] pt-[25px] rounded-2xl lg:px-0 mx-auto max-w-[820px]"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 pl-5 gap-y-[27px] gap-x-[41px] ">
