@@ -5,12 +5,12 @@ export default function HeroSection() {
     <section>
       <div className="relative bg-blue-900 overflow-hidden">
         <img
-          src="/src/assets/Glow.svg"
+          src="/assets/glow.svg"
           alt="Hero Section img"
           className="w-full h-auto absolute z-0 top-0"
         />
         <img
-          src="/src/assets/image.png"
+          src="/assets/image.png"
           alt="Hero Section img"
           className="absolute max-w-[272px] max-h-[272px] md:max-w-[442px] md:max-h-[441px] z-0 top-0 md:right-0 -right-20"
         />

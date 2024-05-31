@@ -60,7 +60,7 @@ function App() {
                   />
                 )}
                 {currentView === "hubspot" && (
-                  <div className="flex flex-col gap-4 pt-10 pb-8">
+                  <div className="flex flex-col gap-4 pt-10 pb-8 px-5">
                     {/* Embed your HubSpot form here */}
                     <h2 className="text-2xl max-w-[800px] mx-auto">
                       You are just a step away from seeing the cost.{" "}
