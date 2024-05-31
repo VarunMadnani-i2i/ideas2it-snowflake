@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import WarehouseManager from "./components/WarehouseManager";
-import WarehouseForm from "./components/WarehouseForm";
+import { useEffect, useState } from "react";
 import "./App.css";
 import HeroSection from "./components/HeroSection";
 import Info from "./components/Info";
+import WarehouseForm from "./components/WarehouseForm";
+import WarehouseManager from "./components/WarehouseManager";
 // import { montserrat } from "./font";
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
   const [initialWarehouseData, setInitialWarehouseData] = useState(null);
 
   const handleWarehouseFormSave = (data) => {
+    console.log(data);
     setInitialWarehouseData(data);
     setCurrentView("hubspot");
   };
@@ -33,7 +34,10 @@ function App() {
             region: "na1",
             portalId: "24031861",
             formId: "e2857982-a11e-494b-a5e3-cae149755208",
+            target: '#hubspotForm',
             onFormSubmitted: handleHubspotSubmission,
+            submitText: 'View Cost',
+            // submitButtonClass: 'btnSubmit'
           });
         }
       });
@@ -60,7 +64,7 @@ function App() {
                   />
                 )}
                 {currentView === "hubspot" && (
-                  <div className="flex flex-col gap-4 pt-10 pb-8 px-5">
+                  <div className="flex flex-col gap-4 px-5 pt-10 pb-8">
                     {/* Embed your HubSpot form here */}
                     <h2 className="text-2xl max-w-[800px] mx-auto">
                       You are just a step away from seeing the cost.{" "}
@@ -68,7 +72,7 @@ function App() {
                     <p className="text-xl max-w-[485px] mx-auto">
                       Enter your name and email address to continue.
                     </p>
-                    <div id="hubspotForm"></div>
+                    <div className="max-w-[540px] w-full mx-auto" id="hubspotForm"></div>
                   </div>
                 )}
               </section>

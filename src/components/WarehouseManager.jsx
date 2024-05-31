@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import WarehouseForm from "./WarehouseForm";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { getCreditHrs, getPriceByCategory, getStorageCost } from "../util";
 import WarehouseView from "./WareHouseBlock";
-import { getPriceByCategory, getStorageCost, getCreditHrs } from "../util";
+import WarehouseForm from "./WarehouseForm";
 
 function WarehouseManager({ initialWarehouseData }) {
   const [warehouses, setWarehouses] = useState([]);
@@ -13,6 +14,10 @@ function WarehouseManager({ initialWarehouseData }) {
       setWarehouses([initialWarehouseData]);
     }
   }, [initialWarehouseData]);
+
+  useEffect(() => {
+    console.log(warehouses);
+  },[warehouses])
 
   const handleSave = (data) => {
     if (editingIndex >= 0) {
@@ -28,12 +33,12 @@ function WarehouseManager({ initialWarehouseData }) {
     setEditingIndex(-1);
     setIsAddingNew(false);
 
-    const totalCredits = calculateTotalCredits();
-    const cost = calculateTotalCost();
+    // const totalCredits = calculateTotalCredits();
+    // const cost = calculateTotalCost();
 
     // Call update functions to pass data to parent component
-    updateTotalCredits(totalCredits);
-    updateEstimatedCost(cost);
+    // updateTotalCredits(totalCredits);
+    // updateEstimatedCost(cost);
   };
 
   const handleEdit = (index) => {
@@ -72,6 +77,9 @@ function WarehouseManager({ initialWarehouseData }) {
           Number(warehouse.sessionsPerDay) *
           (Number(warehouse.daysPerWeek) * 4.5)) /
         60;
+
+      console.log('W',totalHrs)
+
       const credits = getCreditHrs(warehouse.size) * totalHrs;
       const pricePerCredit = getPriceByCategory(
         warehouse.cloudPlatform,
@@ -93,7 +101,7 @@ function WarehouseManager({ initialWarehouseData }) {
   };
   return (
     <div className="flex flex-col">
-      <div className="relative bg-blue-900 overflow-hidden text-white h-auto z-50 pt-20">
+      <div className="relative z-50 h-auto pt-20 overflow-hidden text-white bg-blue-900">
         <img
           src="assets/glow.svg"
           alt="Hero Section img"
@@ -106,24 +114,24 @@ function WarehouseManager({ initialWarehouseData }) {
         />
         <div className="relative z-10 flex flex-col md:flex-row gap-[23px] md:gap-[135px] max-w-[700px] mx-auto justify-center items-center text-center">
           <div>
-            <div className="flex flex-col z-50 text-2xl">
-              <span className="md:text-base text-sm">
+            <div className="z-50 flex flex-col text-2xl">
+              <span className="text-sm md:text-base">
                 Total Credits Cosumed:
               </span>{" "}
               <span className="text-[40px] leading-[48.76px] md:text-[80px] md:leading-[97.52px] md:font-medium">
                 {calculateTotalCredits()}
               </span>
             </div>
-            <p className="md:text-xl text-xs font-thin">per month</p>
+            <p className="text-xs font-thin md:text-xl">per month</p>
           </div>
           <div>
-            <div className="flex flex-col z-50 text-2xl">
-              <span className="md:text-base text-sm">Estimated Cost: </span>
+            <div className="z-50 flex flex-col text-2xl">
+              <span className="text-sm md:text-base">Estimated Cost: </span>
               <span className="text-[40px] leading-[48.76px] md:text-[80px] md:leading-[97.52px] md:font-medium">
-                {calculateTotalCost()}
+                {calculateTotalCost()} $
               </span>
             </div>
-            <p className="md:text-xl text-xs font-thin">per month</p>
+            <p className="text-xs font-thin md:text-xl">per month</p>
           </div>
         </div>
         <p className="text-xs py-10 md:max-w-[700px] md:mx-auto px-5 md:px-0">
@@ -157,7 +165,7 @@ function WarehouseManager({ initialWarehouseData }) {
           )}
         </div>
       ))}
-      <div className="mx-auto py-8">
+      <div className="py-8 mx-auto">
         <button
           className="border border-[#5C409C] text-[#5C409C] cursour-pointer rounded-md px-4 py-2"
           onClick={() => {

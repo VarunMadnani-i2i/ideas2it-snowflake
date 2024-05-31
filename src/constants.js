@@ -355,17 +355,17 @@ export const fields = [
     label: "Est. storage per month ",
     key: fieldKey.STORAGE,
     type: 2,
-    step: 10,
-    min: 10,
+    // step: 10,
+    min: 0,
     max: 1024,
   },
   {
     label: "Duration of each session",
     key: fieldKey.SESSIONDURATION,
     type: 2,
-    step: 1,
+    // step: 1,
     min: 1,
-    max: 12,
+    max: 1000,
   },
 ];
 

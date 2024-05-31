@@ -7,3 +7,8 @@
 .submitted-message {
   display: none !important;
 }
+
+.btnSubmit {
+
+  @apply border border-[#5C409C] text-[#5C409C] cursor-pointer rounded-md px-4 py-2
+}

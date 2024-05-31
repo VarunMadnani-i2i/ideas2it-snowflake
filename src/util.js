@@ -3,6 +3,8 @@ import { pricing } from './constants';
 export function getStorageCost(providerKey, storageType, geoLocationKey) {
   const location = pricing.Providers[providerKey].geoLocations[geoLocationKey];
 
+  console.log('location',location)
+
   if (location) {
     if (storageType === 'onDemand') {
       return location.onDemand;
@@ -31,6 +33,7 @@ export function getPriceByCategory(providerKey, category, geoLocationKey) {
 }
 
 export function getCreditHrs(storageSize) {
+  console.log('getCreditHrs',pricing.Credits[storageSize]);
   if (pricing.Credits && pricing.Credits[storageSize] !== undefined) {
     return pricing.Credits[storageSize];
   } else {

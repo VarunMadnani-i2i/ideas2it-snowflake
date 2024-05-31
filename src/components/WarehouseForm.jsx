@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { fieldKey, fields, pricing } from "../constants";
@@ -9,10 +10,12 @@ const NumberInput = ({
   min,
   max,
   step,
+  field,
   value,
   onChange,
   unitOptions,
   unit,
+  register,
   onUnitChange,
 }) => {
   const decrement = () => {
@@ -28,7 +31,7 @@ const NumberInput = ({
   };
 
   return (
-    <div className="flex items-center justify-between border-2 border-gray-300 rounded-md w-32 py-1 sm:w-36 px-2 md:py-2">
+    <div className="flex items-center justify-between w-32 px-2 py-1 border-2 border-gray-300 rounded-md sm:w-36 md:py-2">
       {!unitOptions && (
         <button type="button" onClick={decrement}>
           <img
@@ -45,11 +48,12 @@ const NumberInput = ({
       <input
         type="number"
         value={value || min}
+        {...register(field.key)}
         onChange={(e) => onChange(Number(e.target.value))}
         step={step}
         min={min}
         max={max}
-        className="text-center appearance-none text-custom_purple"
+        className="text-center bg-transparent appearance-none text-custom_purple"
         style={{ MozAppearance: "textfield" }}
       />
       {!unitOptions && (
@@ -63,9 +67,10 @@ const NumberInput = ({
       )}
       {unitOptions && (
         <select
+          disabled
           value={unit}
           onChange={(e) => onUnitChange(e.target.value)}
-          className="ml-2 appearance-none text-custom_purple font-medium"
+          className="ml-2 font-medium bg-transparent appearance-none !text-custom_purple opacity-100"
           style={{
             MozAppearance: "none",
             WebkitAppearance: "none",
@@ -100,9 +105,9 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
 
   const unitOptions =
     field.label === "Est. storage per month "
-      ? ["TB", "GB", "MB"]
+      ? ["TB"]
       : field.label === "Duration of each session"
-      ? ["mins", "hrs"]
+      ? ["mins"]
       : null;
 
   return (
@@ -153,6 +158,8 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
         <NumberInput
           min={field.min}
           max={field.max}
+          register={register}
+          field={field}
           step={field.step}
           value={value || 0}
           onChange={(val) => setValue(field.key, val)}
