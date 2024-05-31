@@ -9,9 +9,11 @@ function FieldView({ label, data, key }) {
     </div>
   );
 }
+
+// bg-[#F9F9FF]
 function WarehouseView({ warehouse }) {
   return (
-    <div className="bg-[#F9F9FF] rounded-2xl ">
+    <div className="bg-[#F9F9FF] rounded-2xl py-5 max-w-[820px] mx-auto pl-5">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-y-[23px] gap-x-10 max-w-[800px] mx-auto">
         {fields.map(
           (e) =>

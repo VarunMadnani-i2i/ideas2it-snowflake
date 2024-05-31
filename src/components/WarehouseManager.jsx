@@ -144,7 +144,7 @@ function WarehouseManager({ initialWarehouseData }) {
             />
           ) : (
             <div className="mb-6">
-              <div className="flex text-lg mb-8 max-w-[800px] mx-auto">
+              <div className="flex text-lg mb-3 max-w-[800px] mx-auto">
                 <p>Warehouse {index + 1}</p>
                 <div className="ml-auto text-sm underline text-[#5C409C] flex gap-4">
                   <button onClick={() => handleEdit(index)}>Edit</button>

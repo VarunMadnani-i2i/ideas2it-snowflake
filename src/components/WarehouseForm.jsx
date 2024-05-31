@@ -20,12 +20,20 @@ const NumberInput = ({ min, max, step, value, onChange }) => {
 
   return (
     <div className="flex items-center justify-between border-2 border-gray-300 rounded-md w-36 px-2 py-2">
-      <button type="button" onClick={decrement}>
-        <img
-          className="w-[14px] h-[14px]"
-          src="assets/minus.svg"
-          alt="minus button"
-        ></img>
+      <button type="button" onClick={decrement} >
+        {value === min || value === 0 ? (
+          <img
+            className="w-[14px] h-[14px]"
+            src="assets/minus.svg"
+            alt="minus button"
+          />
+        ) : (
+          <img
+            className="w-[19px] h-[14px]"
+            src="assets/darkMinus.png"
+            alt="minus button"
+          />
+        )}
       </button>
       <input
         type="number"
@@ -34,7 +42,7 @@ const NumberInput = ({ min, max, step, value, onChange }) => {
         step={step}
         min={min}
         max={max}
-        className="text-center appearance-none text-custom_purple font-mediun text-xl "
+        className="text-center appearance-none text-custom_purple font-medium text-xl"
         style={{ MozAppearance: "textfield" }}
       />
       <button type="button" onClick={increment}>
@@ -42,7 +50,7 @@ const NumberInput = ({ min, max, step, value, onChange }) => {
           className="w-[14px] h-[14px]"
           src="assets/plus.svg"
           alt="plus button"
-        ></img>
+        />
       </button>
     </div>
   );
@@ -129,7 +137,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
 
   return (
     <form
-      className="bg-[#F9F9FF] pt-[25px] rounded-2xl lg:px-0 mx-auto max-w-[820px]"
+      className="bg-[#F9F9FF] pt-[20px] mt-[20px] rounded-2xl lg:px-0 mx-auto max-w-[820px] mb-5"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 pl-5 gap-y-[27px] gap-x-[41px] ">
@@ -158,7 +166,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
             />
           ))}
       </div>
-      <div className="mt-[39px] flex gap-10 mb-[49px] justify-center">
+      <div className="mt-[39px] flex gap-10 pb-5  justify-center">
         <button
           className="flex gap-2 py-[11px] px-4 border-2 border-custom_purple bg-custom_purple bg-opacity-5 rounded-md text-custom_purple font-medium"
           type="submit"
@@ -166,13 +174,6 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
           Calculate
           <img src="assets/rightArrow.png" alt="arrow" className="w-6 h-auto" />
         </button>
-        {/* <button
-          className="py-[11px] px-4 border-2 border-custom_purple bg-custom_purple bg-opacity-5 rounded-md text-custom_purple"
-          type="button"
-          onClick={onCancel}
-        >
-          Cancel
-        </button> */}
       </div>
     </form>
   );
