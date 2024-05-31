@@ -5,7 +5,16 @@ import { fieldKey, fields, pricing } from "../constants";
 const labelClass = "text-sm text-[#474747]";
 const formGroup = "flex flex-col gap-1";
 
-const NumberInput = ({ min, max, step, value, onChange }) => {
+const NumberInput = ({
+  min,
+  max,
+  step,
+  value,
+  onChange,
+  unitOptions,
+  unit,
+  onUnitChange,
+}) => {
   const decrement = () => {
     if (value - step >= min) {
       onChange(value - step);
@@ -20,44 +29,67 @@ const NumberInput = ({ min, max, step, value, onChange }) => {
 
   return (
     <div className="flex items-center justify-between border-2 border-gray-300 rounded-md w-36 px-2 py-2">
-      <button type="button" onClick={decrement} >
-        {value === min || value === 0 ? (
+      {!unitOptions && (
+        <button type="button" onClick={decrement}>
           <img
             className="w-[14px] h-[14px]"
-            src="assets/minus.svg"
+            src={
+              value === min || value === 0
+                ? "assets/minus.svg"
+                : "assets/darkMinus.png"
+            }
             alt="minus button"
           />
-        ) : (
-          <img
-            className="w-[19px] h-[14px]"
-            src="assets/darkMinus.png"
-            alt="minus button"
-          />
-        )}
-      </button>
+        </button>
+      )}
       <input
         type="number"
-        value={value}
+        value={value || min}
         onChange={(e) => onChange(Number(e.target.value))}
         step={step}
         min={min}
         max={max}
-        className="text-center appearance-none text-custom_purple font-medium text-xl"
+        className="text-center appearance-none text-custom_purple"
         style={{ MozAppearance: "textfield" }}
       />
-      <button type="button" onClick={increment}>
-        <img
-          className="w-[14px] h-[14px]"
-          src="assets/plus.svg"
-          alt="plus button"
-        />
-      </button>
+      {!unitOptions && (
+        <button type="button" onClick={increment}>
+          <img
+            className="w-[14px] h-[14px]"
+            src="assets/plus.svg"
+            alt="plus button"
+          />
+        </button>
+      )}
+      {unitOptions && (
+        <select
+          value={unit}
+          onChange={(e) => onUnitChange(e.target.value)}
+          className="ml-2 appearance-none text-custom_purple font-medium"
+          style={{
+            MozAppearance: "none",
+            WebkitAppearance: "none",
+            appearance: "none",
+          }}
+        >
+          {unitOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 };
 
+
+
 const FieldGenerator = ({ register, field, watch, setValue }) => {
   const platform = watch(fieldKey.PLATFORM);
+  const value = watch(field.key);
+  const unitValue = watch(`${field.key}_unit`);
+
   if (field.key === fieldKey.GEOGRAPHY && platform) {
     const geoLocations = pricing.Providers[platform]?.geoLocations || {};
     field.values = Object.entries(geoLocations).map(([key, location]) => ({
@@ -65,6 +97,13 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       name: location.displayName,
     }));
   }
+
+  const unitOptions =
+    field.label === "Est. storage per month "
+      ? ["TB", "GB", "MB"]
+      : field.label === "Duration of each session"
+      ? ["mins", "hrs"]
+      : null;
 
   return (
     <div className={formGroup}>
@@ -115,13 +154,18 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
           min={field.min}
           max={field.max}
           step={field.step}
-          value={watch(field.key) || 0}
+          value={value || 0}
           onChange={(val) => setValue(field.key, val)}
+          unitOptions={unitOptions}
+          unit={unitValue || (unitOptions ? unitOptions[0] : "")}
+          onUnitChange={(unit) => setValue(`${field.key}_unit`, unit)}
         />
       )}
     </div>
   );
 };
+
+
 
 function WarehouseForm({ defaultValues, onSave, onCancel }) {
   const [showInfo, setShowInfo] = useState(true);
