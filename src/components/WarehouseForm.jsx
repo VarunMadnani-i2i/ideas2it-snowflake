@@ -28,7 +28,7 @@ const NumberInput = ({
   };
 
   return (
-    <div className="flex items-center justify-between border-2 border-gray-300 rounded-md w-36 px-2 py-2">
+    <div className="flex items-center justify-between border-2 border-gray-300 rounded-md w-32 py-1 sm:w-36 px-2 md:py-2">
       {!unitOptions && (
         <button type="button" onClick={decrement}>
           <img
@@ -181,7 +181,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
 
   return (
     <form
-      className="bg-[#F9F9FF] pt-[20px] mt-[20px] rounded-2xl lg:px-0 mx-auto max-w-[820px] mb-5"
+      className="bg-[#F9F9FF] pt-[20px] mt-[20px] rounded-2xl lg:px-0 md:mx-auto max-w-[820px] mb-5"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 pl-5 gap-y-[27px] gap-x-[41px] ">
@@ -197,7 +197,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
             />
           ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 pl-5 gap-y-[27px] gap-x-[41px] mt-10 ">
+      <div className="grid grid-cols-2 md:grid-cols-4 pl-5 gap-y-[27px] gap-x-[41px] mt-10 ">
         {fields
           .filter((field) => field.type === 2)
           .map((field) => (
