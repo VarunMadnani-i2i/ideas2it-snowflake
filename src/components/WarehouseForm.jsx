@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { fieldKey, fields, pricing } from "../constants";
 
@@ -101,6 +101,8 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       value: key,
       name: location.displayName,
     }));
+    // console.log('rerun')
+    // setValue(field.key,field.values[0].value)
   }
 
   const unitOptions =
@@ -109,6 +111,8 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       : field.label === "Duration of each session"
       ? ["mins"]
       : null;
+
+
 
   return (
     <div className={formGroup}>
@@ -120,6 +124,7 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
           <select
             className="bg-custom_purple bg-opacity-5 py-[6px] pl-3 pr-[100px] md:pr-[140px]"
             {...register(field.key)}
+
           >
             {field.values.map((e) => (
               <option key={e.value} value={e.value}>
@@ -131,7 +136,7 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       </div>
       {field.type === 1 && field.label !== "Geography" && (
         <div className="flex flex-wrap gap-4 md:flex-row">
-          {field.values.map((e, index) => (
+          {field.values.map((e) => (
             <div key={e.value} className="flex items-center">
               <input
                 type="radio"
@@ -179,7 +184,17 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
   const { register, handleSubmit, reset, watch, setValue } = useForm({
     defaultValues,
   });
+  const platform = watch(fieldKey.PLATFORM);
 
+  useEffect(() => {
+
+     const geoLocations = pricing.Providers[platform || 'aws']?.geoLocations || {};
+    const locations = Object.entries(geoLocations).map(([key, location]) => ({
+      value: key,
+      name: location.displayName,
+    }));
+    setValue('geography',locations[0].value)
+  },[platform])
   const onSubmit = (data) => {
     onSave(data);
     reset();

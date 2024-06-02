@@ -8,6 +8,8 @@ function WarehouseManager({ initialWarehouseData }) {
   const [warehouses, setWarehouses] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [isAddingNew, setIsAddingNew] = useState(false); // New state for adding warehouses
+  const [credit,setCredit] = useState(0);
+  const [cost,setCost] = useState(0);
 
   useEffect(() => {
     if (initialWarehouseData) {
@@ -17,6 +19,9 @@ function WarehouseManager({ initialWarehouseData }) {
 
   useEffect(() => {
     console.log(warehouses);
+    setCost(calculateTotalCost());
+    setCredit(calculateTotalCredits());
+
   },[warehouses])
 
   const handleSave = (data) => {
@@ -55,6 +60,8 @@ function WarehouseManager({ initialWarehouseData }) {
     setEditingIndex(-1);
     setIsAddingNew(false);
   };
+
+
 
   const calculateTotalCredits = () => {
     return warehouses.reduce((total, warehouse) => {
@@ -119,7 +126,7 @@ function WarehouseManager({ initialWarehouseData }) {
                 Total Credits Cosumed:
               </span>{" "}
               <span className="text-[40px] leading-[48.76px] md:text-[80px] md:leading-[97.52px] md:font-medium">
-                {calculateTotalCredits()}
+                {credit}
               </span>
             </div>
             <p className="text-xs font-thin md:text-xl">per month</p>
@@ -128,7 +135,7 @@ function WarehouseManager({ initialWarehouseData }) {
             <div className="z-50 flex flex-col text-2xl">
               <span className="text-sm md:text-base">Estimated Cost: </span>
               <span className="text-[40px] leading-[48.76px] md:text-[80px] md:leading-[97.52px] md:font-medium">
-                {calculateTotalCost()} $
+                {cost} $
               </span>
             </div>
             <p className="text-xs font-thin md:text-xl">per month</p>
