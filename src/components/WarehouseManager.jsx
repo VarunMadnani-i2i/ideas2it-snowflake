@@ -36,14 +36,6 @@ function WarehouseManager({ initialWarehouseData }) {
       setWarehouses([...warehouses, data]);
     }
     setEditingIndex(-1);
-    setIsAddingNew(false);
-
-    // const totalCredits = calculateTotalCredits();
-    // const cost = calculateTotalCost();
-
-    // Call update functions to pass data to parent component
-    // updateTotalCredits(totalCredits);
-    // updateEstimatedCost(cost);
   };
 
   const handleEdit = (index) => {

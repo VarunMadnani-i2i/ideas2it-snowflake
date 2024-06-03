@@ -7,9 +7,6 @@ const labelClass = "text-sm text-[#474747]";
 const formGroup = "flex flex-col gap-1";
 
 const NumberInput = ({
-  min,
-  max,
-  step,
   field,
   value,
   onChange,
@@ -18,6 +15,8 @@ const NumberInput = ({
   register,
   onUnitChange,
 }) => {
+  const { min, max, step } = field;
+
   const decrement = () => {
     if (value - step >= min) {
       onChange(value - step);
@@ -88,8 +87,6 @@ const NumberInput = ({
   );
 };
 
-
-
 const FieldGenerator = ({ register, field, watch, setValue }) => {
   const platform = watch(fieldKey.PLATFORM);
   const value = watch(field.key);
@@ -101,8 +98,6 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       value: key,
       name: location.displayName,
     }));
-    // console.log('rerun')
-    // setValue(field.key,field.values[0].value)
   }
 
   const unitOptions =
@@ -111,8 +106,6 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       : field.label === "Duration of each session"
       ? ["mins"]
       : null;
-
-
 
   return (
     <div className={formGroup}>
@@ -124,7 +117,6 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
           <select
             className="bg-custom_purple bg-opacity-5 py-[6px] pl-3 pr-[100px] md:pr-[140px]"
             {...register(field.key)}
-
           >
             {field.values.map((e) => (
               <option key={e.value} value={e.value}>
@@ -161,11 +153,8 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
       )}
       {field.type === 2 && (
         <NumberInput
-          min={field.min}
-          max={field.max}
-          register={register}
           field={field}
-          step={field.step}
+          register={register}
           value={value || 0}
           onChange={(val) => setValue(field.key, val)}
           unitOptions={unitOptions}
@@ -177,8 +166,6 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
   );
 };
 
-
-
 function WarehouseForm({ defaultValues, onSave, onCancel }) {
   const [showInfo, setShowInfo] = useState(true);
   const { register, handleSubmit, reset, watch, setValue } = useForm({
@@ -187,14 +174,15 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
   const platform = watch(fieldKey.PLATFORM);
 
   useEffect(() => {
-
-     const geoLocations = pricing.Providers[platform || 'aws']?.geoLocations || {};
+    const geoLocations =
+      pricing.Providers[platform || "aws"]?.geoLocations || {};
     const locations = Object.entries(geoLocations).map(([key, location]) => ({
       value: key,
       name: location.displayName,
     }));
-    setValue('geography',locations[0].value)
-  },[platform])
+    setValue("geography", locations[0].value);
+  }, [platform]);
+
   const onSubmit = (data) => {
     onSave(data);
     reset();
@@ -232,7 +220,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
             />
           ))}
       </div>
-      <div className="mt-[39px] flex gap-10 pb-5  justify-center">
+      <div className="mt-[39px] flex gap-10 pb-5 justify-center">
         <button
           className="flex gap-2 py-[11px] px-4 border-2 border-custom_purple bg-custom_purple bg-opacity-5 rounded-md text-custom_purple font-medium"
           type="submit"

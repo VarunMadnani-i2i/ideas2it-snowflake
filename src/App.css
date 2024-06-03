@@ -9,6 +9,13 @@
 }
 
 .btnSubmit {
+  @apply border border-[#5C409C] text-[#5C409C] cursor-pointer rounded-md px-4 py-2;
+}
 
-  @apply border border-[#5C409C] text-[#5C409C] cursor-pointer rounded-md px-4 py-2
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
