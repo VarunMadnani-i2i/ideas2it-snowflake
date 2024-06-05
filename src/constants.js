@@ -317,7 +317,7 @@ export const fields = [
     type: 1,
     values: [
       { value: "onDemand", name: "On Demand" },
-      { value: "prePurchase", name: "PrePurchase" },
+      { value: "prePurchase", name: "Pre-Purchase", altName: 'Capacity Storage' },
     ],
   },
   {
@@ -341,7 +341,7 @@ export const fields = [
     type: 2,
     step: 1,
     min: 1,
-    max: 24,
+    max: 1000,
   },
   {
     label: "No. of days of week",
@@ -355,15 +355,17 @@ export const fields = [
     label: "Est. storage per month ",
     key: fieldKey.STORAGE,
     type: 2,
-    // step: 10,
-    min: 0,
+    step: 1,
+    defaultValue: 1,
+    min: 1,
     max: 1024,
   },
   {
     label: "Duration of each session",
     key: fieldKey.SESSIONDURATION,
     type: 2,
-    // step: 1,
+    defaultValue: 10,
+    step: 1,
     min: 1,
     max: 1000,
   },

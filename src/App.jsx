@@ -4,6 +4,7 @@ import HeroSection from "./components/HeroSection";
 import Info from "./components/Info";
 import WarehouseForm from "./components/WarehouseForm";
 import WarehouseManager from "./components/WarehouseManager";
+import { fieldKey } from "./constants";
 // import { montserrat } from "./font";
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
             portalId: "24031861",
             formId: "e2857982-a11e-494b-a5e3-cae149755208",
             target: '#hubspotForm',
+            onFormReady: (form) => {
+              const field = form.querySelector('input[name="calculator_values"]')
+              field.value = JSON.stringify(initialWarehouseData)
+            },  
             onFormSubmitted: handleHubspotSubmission,
             submitText: 'View Cost',
             // submitButtonClass: 'btnSubmit'
@@ -59,6 +64,14 @@ function App() {
               <section className="flex flex-col ">
                 {currentView === "initial" && (
                   <WarehouseForm
+                    defaultValues={{
+                      [fieldKey.CATEGORY]: 'Standard',
+                      [fieldKey.PLATFORM]: 'aws',
+                      [fieldKey.STORAGETYPE]: 'onDemand',
+                      [fieldKey.SIZE]: 'S'
+
+
+                    }}
                     onSave={handleWarehouseFormSave}
                     onCancel={() => {}}
                   />

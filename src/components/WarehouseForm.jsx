@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { fieldKey, fields, pricing } from "../constants";
 
@@ -9,23 +8,24 @@ const formGroup = "flex flex-col gap-1";
 const NumberInput = ({
   field,
   value,
-  onChange,
   unitOptions,
   unit,
   register,
   onUnitChange,
+  setValue
 }) => {
-  const { min, max, step } = field;
+  const { min, max, step,defaultValue } = field;
+  
 
   const decrement = () => {
-    if (value - step >= min) {
-      onChange(value - step);
+    if (Number(value) - step >= min) {
+      setValue(field.key,Number(value) - step);
     }
   };
 
   const increment = () => {
-    if (value + step <= max) {
-      onChange(value + step);
+    if ((Number(value) + step) <= max) {
+      setValue(field.key,Number(value) + step);
     }
   };
 
@@ -46,9 +46,9 @@ const NumberInput = ({
       )}
       <input
         type="number"
-        value={value || min}
+        defaultValue={defaultValue || min}
         {...register(field.key)}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onFocus={e => e.target.select()}
         step={step}
         min={min}
         max={max}
@@ -113,7 +113,7 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
         {field.label}
       </label>
       <div className="text-custom_purple">
-        {field.type === 1 && field.label === "Geography" && (
+        {field.type === 1 && field.key === fieldKey.GEOGRAPHY && (
           <select
             className="bg-custom_purple bg-opacity-5 py-[6px] pl-3 pr-[100px] md:pr-[140px]"
             {...register(field.key)}
@@ -125,8 +125,34 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
             ))}
           </select>
         )}
+
+         {field.type === 1 && field.key === fieldKey.STORAGETYPE && (
+         <div className="flex flex-wrap gap-4 md:flex-row">
+          {field.values.map((e) => (
+            <div key={e.value} className="flex items-center">
+              <input
+                type="radio"
+                id={`${field.key}-${e.value}`}
+                {...register(field.key)}
+                value={e.value}
+                className="hidden peer"
+              />
+              <label
+                htmlFor={`${field.key}-${e.value}`}
+                className={`w-auto py-[6px] px-3 rounded-md peer-checked:bg-custom_purple peer-checked:text-white ${
+                  e.value !== watch(field.key)
+                    ? "bg-custom_purple bg-opacity-5 text-custom_purple"
+                    : ""
+                }`}
+              >
+                {platform == 'aws' ? e.name : e.altName ? e.altName : e.name}
+              </label>
+            </div>
+          ))}
+        </div>
+        )}
       </div>
-      {field.type === 1 && field.label !== "Geography" && (
+      {field.type === 1 && field.key !== fieldKey.GEOGRAPHY && field.key !== fieldKey.STORAGETYPE && (
         <div className="flex flex-wrap gap-4 md:flex-row">
           {field.values.map((e) => (
             <div key={e.value} className="flex items-center">
@@ -156,10 +182,10 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
           field={field}
           register={register}
           value={value || 0}
-          onChange={(val) => setValue(field.key, val)}
           unitOptions={unitOptions}
           unit={unitValue || (unitOptions ? unitOptions[0] : "")}
           onUnitChange={(unit) => setValue(`${field.key}_unit`, unit)}
+          setValue={setValue}
         />
       )}
     </div>
@@ -168,19 +194,24 @@ const FieldGenerator = ({ register, field, watch, setValue }) => {
 
 function WarehouseForm({ defaultValues, onSave, onCancel }) {
   const [showInfo, setShowInfo] = useState(true);
-  const { register, handleSubmit, reset, watch, setValue } = useForm({
+  const { register, handleSubmit, reset, watch, setValue,getValues } = useForm({
     defaultValues,
   });
   const platform = watch(fieldKey.PLATFORM);
+  const oldPlatform = defaultValues[fieldKey.PLATFORM]
 
   useEffect(() => {
+    
     const geoLocations =
       pricing.Providers[platform || "aws"]?.geoLocations || {};
     const locations = Object.entries(geoLocations).map(([key, location]) => ({
       value: key,
       name: location.displayName,
     }));
-    setValue("geography", locations[0].value);
+    if (oldPlatform != platform) {
+    console.log('platofmr geogrpay',platform ,oldPlatform)  
+      setValue("geography", locations[0].value);
+    }
   }, [platform]);
 
   const onSubmit = (data) => {
