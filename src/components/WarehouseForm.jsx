@@ -198,7 +198,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
     defaultValues,
   });
   const platform = watch(fieldKey.PLATFORM);
-  const oldPlatform = defaultValues[fieldKey.PLATFORM]
+  const oldPlatform = defaultValues ? defaultValues[fieldKey.PLATFORM] : platform
 
   useEffect(() => {
     
