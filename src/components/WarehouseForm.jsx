@@ -15,7 +15,7 @@ const NumberInput = ({
   setValue
 }) => {
   const { min, max, step,defaultValue } = field;
-  
+
 
   const decrement = () => {
     if (Number(value) - step >= min) {
@@ -37,8 +37,8 @@ const NumberInput = ({
             className="w-[14px] h-[14px]"
             src={
               value === min || value === 0
-                ? "assets/minus.svg"
-                : "assets/darkMinus.png"
+                ? "https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3ddfd56c8a45ab9d2bf_minus.svg"
+                : "https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dd1a9a9437d7136c59_darkMinus.png"
             }
             alt="minus button"
           />
@@ -59,7 +59,7 @@ const NumberInput = ({
         <button type="button" onClick={increment}>
           <img
             className="w-[14px] h-[14px]"
-            src="assets/plus.svg"
+            src="https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dd06c001a7e801751c_plus.svg"
             alt="plus button"
           />
         </button>
@@ -201,7 +201,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
   const oldPlatform = defaultValues ? defaultValues[fieldKey.PLATFORM] : platform
 
   useEffect(() => {
-    
+
     const geoLocations =
       pricing.Providers[platform || "aws"]?.geoLocations || {};
     const locations = Object.entries(geoLocations).map(([key, location]) => ({
@@ -209,7 +209,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
       name: location.displayName,
     }));
     if (oldPlatform != platform) {
-    console.log('platofmr geogrpay',platform ,oldPlatform)  
+    console.log('platofmr geogrpay',platform ,oldPlatform)
       setValue("geography", locations[0].value);
     }
   }, [platform]);
@@ -257,7 +257,7 @@ function WarehouseForm({ defaultValues, onSave, onCancel }) {
           type="submit"
         >
           Calculate
-          <img src="assets/rightArrow.png" alt="arrow" className="w-6 h-auto" />
+          <img src="https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dd4350dea264c0ea70_rightArrow.png" alt="arrow" className="w-6 h-auto" />
         </button>
       </div>
     </form>

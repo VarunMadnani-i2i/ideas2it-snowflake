@@ -102,12 +102,12 @@ function WarehouseManager({ initialWarehouseData }) {
     <div className="flex flex-col">
       <div className="relative z-50 h-auto pt-20 overflow-hidden text-white bg-blue-900">
         <img
-          src="assets/glow.svg"
+          src="https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dd3bc3b8daa9776289_glow.svg"
           alt="Hero Section img"
           className="w-[800px] h-auto md:h-[700px] absolute z-0 top-0"
         />
         <img
-          src="assets/hero_design.svg"
+          src="https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dda2b7c4f706c037c5_hero_design.svg"
           alt="Hero Section img"
           className="absolute max-w-[272px] max-h-[272px] md:max-w-[442px] md:max-h-[441px] z-0 -top-20 md:-top-40 md:right-0 -right-20"
         />

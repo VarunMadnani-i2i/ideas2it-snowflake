@@ -3,14 +3,14 @@ import React from "react";
 export default function HeroSection() {
   return (
     <section>
-      <div className="relative bg-blue-900 overflow-hidden">
+      <div className="relative overflow-hidden bg-blue-900">
         <img
-          src="assets/glow.svg"
+          src="https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dd3bc3b8daa9776289_glow.svg"
           alt="Hero Section img"
-          className="w-full h-auto absolute z-0 top-0"
+          className="absolute top-0 z-0 w-full h-auto"
         />
         <img
-          src="assets/hero_design.svg"
+          src="https://uploads-ssl.webflow.com/64f810ca98a7e2ef2f6761ef/6673d3dda2b7c4f706c037c5_hero_design.svg"
           alt="Hero Section img"
           className="absolute max-w-[272px] max-h-[272px] md:max-w-[442px] md:max-h-[441px] z-0 top-0 md:right-0 -right-20"
         />
@@ -21,14 +21,14 @@ export default function HeroSection() {
                 Wondering how much a Snowflake Data Cloud could cost?
               </h1>
               <div className="flex flex-col gap-4 md:gap-6">
-                <p className="z-10 font-montserrat text-xs md:text-base">
+                <p className="z-10 text-xs font-montserrat md:text-base">
                   Migrating your data from an on-prem to a Cloud Datawarehouse
                   &#40;or from one CDW to another&#41; could be a daunting task.
                   Even more when you can&apos;t estimate how much your new CDW
                   could cost you. You are not alone. Most of our customers have
                   shared this experience with us.
                 </p>
-                <p className="z-10 font-montserrat text-xs md:text-base">
+                <p className="z-10 text-xs font-montserrat md:text-base">
                   This is why we put our 1000&apos;s of hours of Snowflake
                   expertise to develop this free Snowflake Cost Calculator to
                   help you.
